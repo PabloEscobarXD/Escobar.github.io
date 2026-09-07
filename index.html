@@ -32,6 +32,7 @@
   a{color:inherit; text-decoration:none;}
   .wrap{max-width:960px; margin:0 auto; padding:0 24px;}
   img, video{max-width:100%; display:block;}
+  button{font:inherit; cursor:pointer;}
 
   /* NAV */
   header.nav{
@@ -44,7 +45,7 @@
   .logo{font-family:var(--mono); font-weight:700; font-size:15px; display:flex; align-items:center; gap:6px;}
   .logo::after{content:""; width:7px; height:14px; background:var(--accent); display:inline-block; animation: blink 1.1s steps(2) infinite;}
   @keyframes blink{50%{opacity:0;}}
-  nav.links{display:flex; gap:26px;}
+  nav.links{display:flex; gap:22px;}
   nav.links a{font-family:var(--mono); font-size:13px; color:var(--text-dim); letter-spacing:.02em; transition:color .15s ease;}
   nav.links a:hover{color:var(--accent);}
   .status-pill{
@@ -54,14 +55,14 @@
   }
 
   /* HERO */
-  .hero{padding:96px 0 64px; border-bottom:1px solid var(--line); display:grid; grid-template-columns:1fr 200px; gap:48px; align-items:center;}
+  .hero{padding:96px 0 64px; border-bottom:1px solid var(--line);}
   .hero-text .eyebrow{font-family:var(--mono); font-size:13px; color:var(--accent-2); letter-spacing:.05em; margin-bottom:18px; display:block;}
   h1{font-family:var(--sans); font-weight:600; font-size:clamp(30px, 5vw, 46px); line-height:1.1; letter-spacing:-0.01em; margin-bottom:12px;}
   h1 span{color:var(--accent);}
   .tagline{font-family:var(--mono); font-size:14px; color:var(--text-dim); margin-bottom:20px;}
   .lede{max-width:560px; color:var(--text-dim); font-size:16px; margin-bottom:28px;}
   .lede b{color:var(--text); font-weight:600;}
-  .social-row{display:flex; gap:16px;}
+  .social-row{display:flex; gap:16px; flex-wrap:wrap;}
   .social-row a{
     font-family:var(--mono); font-size:13px; color:var(--text-dim);
     border:1px solid var(--line); padding:8px 14px; border-radius:8px;
@@ -84,14 +85,23 @@
   .about-grid p{margin-bottom:16px;}
   .about-grid b{color:var(--text);}
 
-  /* PROJECTS */
-  .project{
-    display:grid; grid-template-columns:1fr; gap:20px;
-    padding:28px; margin-bottom:24px;
+  /* PROJECT CAROUSEL */
+  .carousel{
+    position:relative;
     background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .carousel-track{
+    display:flex;
+    transition: transform .4s ease;
+  }
+  .slide{
+    flex:0 0 100%;
+    display:grid; grid-template-columns:1fr; gap:20px;
+    padding:28px;
   }
   @media (min-width:760px){
-    .project{grid-template-columns:280px 1fr;}
+    .slide{grid-template-columns:300px 1fr;}
   }
   .project-media{
     width:100%; aspect-ratio:16/10; border-radius:8px; object-fit:cover;
@@ -100,16 +110,38 @@
   }
   .project-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:8px;}
   .project-year{font-family:var(--mono); font-size:12px; color:var(--accent);}
-  .project h3{font-family:var(--sans); font-size:19px;}
+  .slide h3{font-family:var(--sans); font-size:19px;}
   .tags{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;}
   .tag{font-family:var(--mono); font-size:11px; color:var(--text-dim); border:1px solid var(--line); padding:4px 9px; border-radius:5px;}
-  .project p.desc{color:var(--text-dim); font-size:14.5px; margin-bottom:14px;}
-  .project ul{list-style:none; margin-bottom:14px;}
-  .project ul li{font-size:13.5px; color:var(--text-dim); padding-left:16px; position:relative; margin-bottom:5px;}
-  .project ul li::before{content:"—"; position:absolute; left:0; color:var(--accent-2);}
+  .slide p.desc{color:var(--text-dim); font-size:14.5px; margin-bottom:14px;}
+  .slide ul{list-style:none; margin-bottom:14px;}
+  .slide ul li{font-size:13.5px; color:var(--text-dim); padding-left:16px; position:relative; margin-bottom:5px;}
+  .slide ul li::before{content:"—"; position:absolute; left:0; color:var(--accent-2);}
   .project-links{display:flex; gap:16px; flex-wrap:wrap;}
   .project-links a{font-family:var(--mono); font-size:13px; color:var(--accent-2); border-bottom:1px solid transparent;}
   .project-links a:hover{border-color:var(--accent-2);}
+
+  .carousel-controls{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px; border-top:1px solid var(--line);
+  }
+  .arrow-btn{
+    width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--line); background:transparent; color:var(--text);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:16px;
+    transition: all .15s ease;
+  }
+  .arrow-btn:hover{border-color:var(--accent); color:var(--accent);}
+  .arrow-btn:disabled{opacity:.3; cursor:default;}
+  .arrow-btn:disabled:hover{border-color:var(--line); color:var(--text);}
+  .dots{display:flex; gap:8px;}
+  .dot{
+    width:7px; height:7px; border-radius:50%; background:var(--line); border:none; padding:0;
+    transition: background .15s ease;
+  }
+  .dot.active{background:var(--accent);}
+  .counter{font-family:var(--mono); font-size:12px; color:var(--text-dim);}
 
   /* STACK */
   .stack-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:12px;}
@@ -133,6 +165,25 @@
   .tl-item .org{font-family:var(--mono); font-size:13px; color:var(--accent-2); margin-bottom:8px; display:block;}
   .tl-item p{color:var(--text-dim); font-size:14.5px;}
 
+  /* MUSIC */
+  .music-grid{display:grid; grid-template-columns:1fr; gap:16px;}
+  @media (min-width:600px){ .music-grid{grid-template-columns:1fr 1fr;} }
+  .music-card{
+    display:flex; align-items:center; gap:16px;
+    background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; transition:border-color .15s ease;
+  }
+  .music-card:hover{border-color:var(--accent);}
+  .music-icon{
+    width:44px; height:44px; border-radius:10px; flex:none;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-weight:700; font-size:14px;
+  }
+  .music-icon.spotify{background:rgba(30,215,96,0.12); color:#1ed760;}
+  .music-icon.soundcloud{background:rgba(255,119,0,0.12); color:#ff7700;}
+  .music-card h3{font-family:var(--sans); font-size:16px; margin-bottom:2px;}
+  .music-card span{font-family:var(--mono); font-size:12px; color:var(--text-dim);}
+
   /* CONTACT */
   footer.contact{padding:80px 0 60px; text-align:center;}
   footer.contact h2{font-family:var(--sans); font-size:clamp(26px,5vw,38px); margin-bottom:16px;}
@@ -144,13 +195,14 @@
 
   @media (max-width:640px){
     nav.links{display:none;}
-    .hero{grid-template-columns:1fr; text-align:left;}
-    .hero-photo{width:140px; height:140px;}
+    .hero{display:block;}
+    .hero-photo{width:140px; height:140px; margin-top:24px;}
   }
   :focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     .logo::after{animation:none;}
+    .carousel-track{transition:none;}
   }
 </style>
 </head>
@@ -162,6 +214,7 @@
     <nav class="links">
       <a href="#about">Sobre mí</a>
       <a href="#projects">Proyectos</a>
+      <a href="#music">Música</a>
       <a href="#stack">Stack</a>
       <a href="#education">Estudios</a>
       <a href="#contact">Contacto</a>
@@ -220,52 +273,111 @@
     <span class="section-tag">// trabajo destacado</span>
     <h2>Proyectos</h2>
 
-    <div class="project">
-      <img class="project-media" src="img/proyecto-1.jpg" alt="Descripción del proyecto 1">
-      <div>
-        <div class="project-head">
-          <h3>Nombre del Proyecto</h3>
-          <span class="project-year">(2026)</span>
+    <div class="carousel">
+      <div class="carousel-track" id="carousel-track">
+
+        <!-- SLIDE 1 -->
+        <div class="slide">
+          <img class="project-media" src="img/proyecto-1.jpg" alt="Descripción del proyecto 1">
+          <div>
+            <div class="project-head">
+              <h3>Nombre del Proyecto</h3>
+              <span class="project-year">(2026)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Disciplina 1</span>
+              <span class="tag">Disciplina 2</span>
+            </div>
+            <p class="desc">
+              Contexto del proyecto: qué problema resolviste, tu rol específico, y algo que lo haga
+              memorable — un reto técnico, una decisión de diseño, un dato curioso del proceso.
+            </p>
+            <ul>
+              <li>Logro o responsabilidad concreta #1</li>
+              <li>Logro o responsabilidad concreta #2</li>
+              <li>Logro o responsabilidad concreta #3</li>
+            </ul>
+            <div class="project-links">
+              <a href="#" target="_blank">Ver demo →</a>
+              <a href="#" target="_blank">Código fuente →</a>
+            </div>
+          </div>
         </div>
-        <div class="tags">
-          <span class="tag">Disciplina 1</span>
-          <span class="tag">Disciplina 2</span>
+
+        <!-- SLIDE 2 -->
+        <div class="slide">
+          <img class="project-media" src="img/proyecto-2.jpg" alt="Descripción del proyecto 2">
+          <div>
+            <div class="project-head">
+              <h3>Otro Proyecto</h3>
+              <span class="project-year">(2025)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Disciplina 1</span>
+            </div>
+            <p class="desc">Descripción breve del proyecto, tu rol y el resultado.</p>
+            <ul>
+              <li>Logro o responsabilidad concreta #1</li>
+              <li>Logro o responsabilidad concreta #2</li>
+            </ul>
+            <div class="project-links">
+              <a href="#" target="_blank">Ver más →</a>
+            </div>
+          </div>
         </div>
-        <p class="desc">
-          Contexto del proyecto: qué problema resolviste, tu rol específico, y algo que lo haga
-          memorable — un reto técnico, una decisión de diseño, un dato curioso del proceso.
-        </p>
-        <ul>
-          <li>Logro o responsabilidad concreta #1</li>
-          <li>Logro o responsabilidad concreta #2</li>
-          <li>Logro o responsabilidad concreta #3</li>
-        </ul>
-        <div class="project-links">
-          <a href="#" target="_blank">Ver demo →</a>
-          <a href="#" target="_blank">Código fuente →</a>
+
+        <!-- SLIDE 3 (placeholder extra, borra si no lo necesitas) -->
+        <div class="slide">
+          <img class="project-media" src="img/proyecto-3.jpg" alt="Descripción del proyecto 3">
+          <div>
+            <div class="project-head">
+              <h3>Tercer Proyecto</h3>
+              <span class="project-year">(2024)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Disciplina 1</span>
+            </div>
+            <p class="desc">Descripción breve del proyecto, tu rol y el resultado.</p>
+            <ul>
+              <li>Logro o responsabilidad concreta #1</li>
+            </ul>
+            <div class="project-links">
+              <a href="#" target="_blank">Ver más →</a>
+            </div>
+          </div>
         </div>
+
+      </div>
+
+      <div class="carousel-controls">
+        <button class="arrow-btn" id="prev-btn" aria-label="Proyecto anterior">←</button>
+        <div class="dots" id="dots"></div>
+        <span class="counter" id="counter">1 / 3</span>
+        <button class="arrow-btn" id="next-btn" aria-label="Proyecto siguiente">→</button>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="project">
-      <img class="project-media" src="img/proyecto-2.jpg" alt="Descripción del proyecto 2">
-      <div>
-        <div class="project-head">
-          <h3>Otro Proyecto</h3>
-          <span class="project-year">(2025)</span>
+<section class="section" id="music">
+  <div class="wrap">
+    <span class="section-tag">// producción musical</span>
+    <h2>Música</h2>
+    <div class="music-grid">
+      <a class="music-card" href="https://open.spotify.com/artist/tu-perfil" target="_blank">
+        <div class="music-icon spotify">SP</div>
+        <div>
+          <h3>Spotify</h3>
+          <span>Escucha mis tracks →</span>
         </div>
-        <div class="tags">
-          <span class="tag">Disciplina 1</span>
+      </a>
+      <a class="music-card" href="https://soundcloud.com/tu-usuario" target="_blank">
+        <div class="music-icon soundcloud">SC</div>
+        <div>
+          <h3>SoundCloud</h3>
+          <span>Demos y trabajo en progreso →</span>
         </div>
-        <p class="desc">Descripción breve del proyecto, tu rol y el resultado.</p>
-        <ul>
-          <li>Logro o responsabilidad concreta #1</li>
-          <li>Logro o responsabilidad concreta #2</li>
-        </ul>
-        <div class="project-links">
-          <a href="#" target="_blank">Ver más →</a>
-        </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -312,6 +424,45 @@
     <p class="foot-note">Pablo Escobar · Chile · 2026</p>
   </div>
 </footer>
+
+<script>
+(function(){
+  const track = document.getElementById('carousel-track');
+  const slides = Array.from(track.children);
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const dotsWrap = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  let index = 0;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Ir al proyecto ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function render(){
+    track.style.transform = 'translateX(-' + (index * 100) + '%)';
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    counter.textContent = (index + 1) + ' / ' + slides.length;
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === slides.length - 1;
+  }
+
+  function goTo(i){
+    index = Math.max(0, Math.min(slides.length - 1, i));
+    render();
+  }
+
+  prevBtn.addEventListener('click', () => goTo(index - 1));
+  nextBtn.addEventListener('click', () => goTo(index + 1));
+
+  render();
+})();
+</script>
 
 </body>
 </html>
