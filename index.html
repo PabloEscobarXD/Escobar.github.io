@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pablo Escobar — Game Developer · Programmer · Sound Design</title>
+<meta name="description" content="Portafolio de Pablo Escobar, Game Developer y Programador con experiencia en diseño de sonido y producción musical.">
+<style>
+  :root{
+    --bg: #071312;
+    --bg-alt: #0d201d;
+    --line: #1d3835;
+    --text: #e6f5f3;
+    --text-dim: #86ada7;
+    --accent: #2dd4bf;
+    --accent-2: #5eead4;
+    --mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+    --sans: "Space Grotesk", "Inter", system-ui, sans-serif;
+    --body: "Inter", system-ui, sans-serif;
+    --radius: 10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    background-image: radial-gradient(circle at 1px 1px, rgba(45,212,191,0.05) 1px, transparent 0);
+    background-size: 28px 28px;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:960px; margin:0 auto; padding:0 24px;}
+  .wrap-wide{max-width:1140px; margin:0 auto; padding:0 24px;}
+  img, video{max-width:100%; display:block;}
+  button{font:inherit; cursor:pointer;}
+
+  /* NAV */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter: blur(10px);
+    background: rgba(7,19,18,0.75);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{max-width:960px; margin:0 auto; padding:16px 24px; display:flex; align-items:center; justify-content:space-between;}
+  .logo{font-family:var(--mono); font-weight:700; font-size:15px; display:flex; align-items:center; gap:6px;}
+  .logo::after{content:""; width:7px; height:14px; background:var(--accent); display:inline-block; animation: blink 1.1s steps(2) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  nav.links{display:flex; gap:22px;}
+  nav.links a{font-family:var(--mono); font-size:13px; color:var(--text-dim); letter-spacing:.02em; transition:color .15s ease;}
+  nav.links a:hover{color:var(--accent);}
+  .status-pill{
+    font-family:var(--mono); font-size:12px; color:var(--accent);
+    border:1px solid rgba(45,212,191,0.35); background:rgba(45,212,191,0.08);
+    padding:5px 10px; border-radius:999px; white-space:nowrap;
+  }
+
+  /* HERO */
+  .hero{padding:96px 0 64px; border-bottom:1px solid var(--line);}
+  .hero-text .eyebrow{font-family:var(--mono); font-size:13px; color:var(--accent-2); letter-spacing:.05em; margin-bottom:18px; display:block;}
+  h1{font-family:var(--sans); font-weight:600; font-size:clamp(30px, 5vw, 46px); line-height:1.1; letter-spacing:-0.01em; margin-bottom:12px;}
+  h1 span{color:var(--accent);}
+  .tagline{font-family:var(--mono); font-size:14px; color:var(--text-dim); margin-bottom:20px;}
+  .lede{max-width:560px; color:var(--text-dim); font-size:16px; margin-bottom:28px;}
+  .lede b{color:var(--text); font-weight:600;}
+  .social-row{display:flex; gap:16px; flex-wrap:wrap;}
+  .social-row a{
+    font-family:var(--mono); font-size:13px; color:var(--text-dim);
+    border:1px solid var(--line); padding:8px 14px; border-radius:8px;
+    transition:all .15s ease;
+  }
+  .social-row a:hover{border-color:var(--accent); color:var(--accent);}
+  .hero-photo{
+    width:200px; height:200px; border-radius:14px; overflow:hidden;
+    border:1px solid var(--line); background:linear-gradient(135deg,#12312d,#0a1a18);
+  }
+  .hero-photo img{width:100%; height:100%; object-fit:cover;}
+
+  /* SECTION HEADERS */
+  .section{padding:76px 0; border-bottom:1px solid var(--line);}
+  .section-tag{font-family:var(--mono); font-size:12px; color:var(--text-dim); letter-spacing:.08em; margin-bottom:10px; display:block;}
+  .section > .wrap > h2, .section > .wrap-wide > h2{font-family:var(--sans); font-size:clamp(24px,4vw,32px); font-weight:600; margin-bottom:44px;}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1fr; gap:20px; color:var(--text-dim); font-size:15.5px;}
+  .about-grid p{margin-bottom:16px;}
+  .about-grid b{color:var(--text);}
+
+  /* PROJECT CAROUSEL */
+  .carousel{
+    position:relative;
+    background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .carousel-track{
+    display:flex;
+    transition: transform .4s ease;
+  }
+  .slide{
+    flex:0 0 100%;
+    display:grid; grid-template-columns:1fr; gap:28px;
+    padding:32px;
+    min-height:420px;
+  }
+  @media (min-width:760px){
+    .slide{grid-template-columns:1.1fr 1fr; align-items:center;}
+  }
+  .project-media{
+    width:100%; aspect-ratio:4/3; border-radius:10px; object-fit:cover;
+    background:linear-gradient(135deg, #12312d, #0a1a18);
+    border:1px solid var(--line);
+  }
+  .project-body{display:flex; flex-direction:column; height:100%;}
+  .project-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:10px;}
+  .project-head h3{font-family:var(--sans); font-size:24px; font-weight:600; margin:0;}
+  .project-year{font-family:var(--mono); font-size:13px; color:var(--accent);}
+  .tags{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  .tag{font-family:var(--mono); font-size:12px; color:var(--text-dim); border:1px solid var(--line); padding:5px 10px; border-radius:5px;}
+  .project-body p.desc{color:var(--text-dim); font-size:15.5px; margin-bottom:16px;}
+  .project-body ul{list-style:none; margin-bottom:16px;}
+  .project-body ul li{font-size:14.5px; color:var(--text-dim); padding-left:16px; position:relative; margin-bottom:6px;}
+  .project-body ul li::before{content:"—"; position:absolute; left:0; color:var(--accent-2);}
+  .project-links{display:flex; gap:18px; flex-wrap:wrap; margin-top:auto; padding-top:4px;}
+  .project-links a{font-family:var(--mono); font-size:14px; color:var(--accent-2); border-bottom:1px solid transparent;}
+  .project-links a:hover{border-color:var(--accent-2);}
+
+  .carousel-controls{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px; border-top:1px solid var(--line);
+  }
+  .arrow-btn{
+    width:40px; height:40px; border-radius:50%;
+    border:none; background:var(--accent); color:#06201c;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:18px; font-weight:700;
+    box-shadow: 0 0 0 4px rgba(45,212,191,0.12), 0 4px 14px rgba(45,212,191,0.25);
+    transition: all .15s ease;
+  }
+  .arrow-btn:hover{background:var(--accent-2); transform:scale(1.08); box-shadow: 0 0 0 5px rgba(45,212,191,0.18), 0 6px 18px rgba(45,212,191,0.3);}
+  .arrow-btn:disabled{opacity:.25; cursor:default; box-shadow:none;}
+  .arrow-btn:disabled:hover{background:var(--accent); transform:none;}
+  .dots{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; max-width:200px;}
+  .dot{
+    width:7px; height:7px; border-radius:50%; background:var(--line); border:none; padding:0;
+    transition: background .15s ease;
+  }
+  .dot.active{background:var(--accent);}
+  .counter{font-family:var(--mono); font-size:12px; color:var(--text-dim);}
+
+  /* STACK */
+  .stack-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:12px;}
+  .stack-item{
+    background:var(--bg-alt); border:1px solid var(--line); border-radius:8px;
+    padding:16px 12px; text-align:center; font-family:var(--mono); font-size:13px;
+    transition: border-color .15s ease;
+  }
+  .stack-item:hover{border-color:var(--accent);}
+
+  /* TIMELINE (Carrera Profesional) */
+  .timeline{position:relative; padding-left:28px;}
+  .timeline::before{content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line);}
+  .tl-item{position:relative; margin-bottom:32px;}
+  .tl-item::before{
+    content:""; position:absolute; left:-28px; top:5px; width:9px; height:9px;
+    border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px rgba(45,212,191,0.15);
+  }
+  .tl-date{font-family:var(--mono); font-size:12px; color:var(--text-dim); margin-bottom:6px; display:block;}
+  .tl-item h3{font-family:var(--sans); font-size:17px; margin-bottom:2px;}
+  .tl-item .org{font-family:var(--mono); font-size:13px; color:var(--accent-2); margin-bottom:8px; display:block;}
+  .tl-item p{color:var(--text-dim); font-size:14.5px;}
+  .tl-item ul{list-style:none; margin-top:8px;}
+  .tl-item ul li{font-size:14px; color:var(--text-dim); padding-left:16px; position:relative; margin-bottom:4px;}
+  .tl-item ul li::before{content:"—"; position:absolute; left:0; color:var(--accent-2);}
+
+  /* MUSIC */
+  .music-grid{display:grid; grid-template-columns:1fr; gap:16px;}
+  @media (min-width:600px){ .music-grid{grid-template-columns:1fr 1fr;} }
+  .music-card{
+    display:flex; align-items:center; gap:16px;
+    background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; transition:border-color .15s ease;
+  }
+  .music-card:hover{border-color:var(--accent);}
+  .music-icon{
+    width:44px; height:44px; border-radius:10px; flex:none;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-weight:700; font-size:14px;
+  }
+  .music-icon.spotify{background:rgba(45,212,191,0.14); color:var(--accent);}
+  .music-icon.soundcloud{background:rgba(94,234,212,0.14); color:var(--accent-2);}
+  .music-card h3{font-family:var(--sans); font-size:16px; margin-bottom:2px;}
+  .music-card span{font-family:var(--mono); font-size:12px; color:var(--text-dim);}
+
+  /* CONTACT */
+  footer.contact{padding:80px 0 60px; text-align:center;}
+  footer.contact h2{font-family:var(--sans); font-size:clamp(26px,5vw,38px); margin-bottom:16px;}
+  footer.contact p{color:var(--text-dim); margin-bottom:32px;}
+  .contact-links{display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:48px;}
+  .contact-links a{font-family:var(--mono); font-size:14px; color:var(--accent);}
+  .contact-links a:hover{text-decoration:underline;}
+  .foot-note{font-family:var(--mono); font-size:12px; color:var(--text-dim);}
+
+  @media (max-width:640px){
+    nav.links{display:none;}
+    .hero{display:block;}
+    .hero-photo{width:140px; height:140px; margin-top:24px;}
+  }
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .logo::after{animation:none;}
+    .carousel-track{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">PE.</div>
+    <nav class="links">
+      <a href="#about">Sobre mí</a>
+      <a href="#projects">Proyectos</a>
+      <a href="#music">Música</a>
+      <a href="#stack">Stack</a>
+      <a href="#career">Carrera</a>
+      <a href="#contact">Contacto</a>
+    </nav>
+    <span class="status-pill">Disponible · Remoto</span>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap" style="display:grid; grid-template-columns:1fr 200px; gap:48px; align-items:center;">
+    <div class="hero-text">
+      <span class="eyebrow">// hola, soy</span>
+      <h1>Pablo Escobar <span>Game Developer</span></h1>
+      <p class="tagline">Programmer · Sound Design · Music Producer</p>
+      <p class="lede">
+        Desarrollador de videojuegos con foco en programación, diseño de sonido y producción musical.
+        Me apasiona la combinación entre lógica de juego y atmósfera sonora — construir sistemas en
+        <b>Unity</b> y <b>C++/C#</b>, y luego darles vida con sonido y música propia en <b>FMOD</b>.
+      </p>
+      <div class="social-row">
+        <a href="https://linkedin.com/in/tu-usuario" target="_blank">LinkedIn</a>
+        <a href="mailto:tu@email.com">Email</a>
+        <a href="https://github.com/tu-usuario" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="img/foto-perfil.jpg" alt="Foto de Pablo Escobar">
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <span class="section-tag">// sobre mí</span>
+    <h2>About Me</h2>
+    <div class="about-grid">
+      <p>
+        [Cuenta tu historia aquí: cómo empezaste en el desarrollo de videojuegos, qué te llevó a combinar
+        programación con sonido y música, momentos formativos que marcaron tu camino.]
+      </p>
+      <p>
+        Actualmente curso <b>Ingeniería en Desarrollo de Videojuegos y Realidad Virtual</b> en la
+        <b>Universidad de Talca</b> (2020–2026), donde he podido combinar mi interés por la programación
+        de sistemas de juego con el diseño de sonido y la producción musical.
+      </p>
+      <p>
+        [Cierra con algo sobre tu presente: en qué estás trabajando ahora, proyectos personales,
+        o tu filosofía de trabajo como desarrollador/sound designer.]
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="wrap-wide">
+    <span class="section-tag">// trabajo destacado</span>
+    <h2>Proyectos</h2>
+
+    <div class="carousel">
+      <div class="carousel-track" id="carousel-track">
+
+        <!-- SLIDE 1 -->
+        <div class="slide">
+          <img class="project-media" src="img/Soul Reaper.PNG" alt="Soul Reaper">
+          <div class="project-body">
+            <div class="project-head">
+              <h3>Soul Reaper</h3>
+              <span class="project-year">(2020)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Producción musical</span>
+              <span class="tag">Programador secundario</span>
+            </div>
+            <p class="desc">
+              Videojuego de acción y plataformas en el que controlas a Peste, uno de los cuatro jinetes del apocalipsis de la Biblia en
+              búsqueda de las almas de los pecadores que quedaron luego del rapto de los creyentes.
+            </p>
+            <div class="project-links">
+              <a href="https://lagnarok.itch.io/soul-reaper" target="_blank">Jugar →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="slide">
+          <img class="project-media" src="img/The Benchmark.PNG" alt="Menú principal">
+          <div class="project-body">
+            <div class="project-head">
+              <h3>The Benchmark</h3>
+              <span class="project-year">(2025)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Programador principal</span>
+              <span class="tag">Modelado y diseño 3D</span>
+              <span class="tag">Producción musical</span>
+            </div>
+            <p class="desc">Hack n Slash 3D con elementos arcade en el que enfrentas a oleadas de enemigos para
+              obtener el mayor puntaje posible y superar tu record. Corresponde a mi memoria de título para concluir mis estudios
+              universitarios.
+            </p>
+            <div class="project-links">
+              <a href="#" target="_blank">Ver más →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3 -->
+        <div class="slide">
+          <img class="project-media" src="img/Nexus Protocol.PNG" alt="Menú Principal">
+          <div class="project-body">
+            <div class="project-head">
+              <h3>Nexus Protocol</h3>
+              <span class="project-year">(2026)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Diseñado y modelado 3D</span>
+              <span class="tag">Diseño UI</span>
+              <span class="tag">Programador Secundario</span>
+            </div>
+            <p class="desc">Serious Game sobre el reconocimiento emocional representado en un Juego de Cartas.
+            Aquí enfrentas a una IA llamada NEXO en su propio juego de cartas en el cual él presenta situaciones
+            y el jugador utiliza cartas de emoción para relacionarlas a dichos escenarios</p>
+          </div>
+        </div>
+
+        <!-- SLIDE 4 -->
+        <div class="slide">
+          <img class="project-media" src="img/Mask n Mask.PNG" alt="Mask n Mask">
+          <div class="project-body">
+            <div class="project-head">
+              <h3>Mask n Mask</h3>
+              <span class="project-year">(2020)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Producción musical</span>
+              <span class="tag">Diseño UI</span>
+              <span class="tag">Programador Secundario</span>
+            </div>
+            <p class="desc">
+              Videojuego arcade de puzzles desarrollado para la GLOBAL GAME JAM 2026. Utiliza tu agilidad mental para
+              hacer coincidir todas las máscaras con el objetivo del centro, y cuidado con las máscaras jefes, son esponjas
+              que absorben tu tiempo restante.
+            </p>
+            <div class="project-links">
+              <a href="https://nachowo.itch.io/mask-n-mask" target="_blank">Jugar →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 5 -->
+        <div class="slide">
+          <img class="project-media" src="img/Mine Wiper.PNG" alt="Mine Wiper">
+          <div class="project-body">
+            <div class="project-head">
+              <h3>Mine Wiper</h3>
+              <span class="project-year">(2025)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Programador principal</span>
+              <span class="tag">Diseño UI</span>
+            </div>
+            <p class="desc">
+              Videojuego desarrollado para la GLOBAL GAME JAM 2025. Dentro de un breve periodo de tiempo, el jugador
+              debe hacer explotar minas submarinas y acumular la mayor cantidad de puntaje posible. Las explosiones en cadena
+              otorgan más puntaje y para hacerlas estallar se utiliza un gancho que se acopla a las minas.
+            </p>
+            <div class="project-links">
+              <a href="https://nachowo.itch.io/mine-wiper" target="_blank">Jugar →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 6 -->
+        <div class="slide">
+          <img class="project-media" src="img/32.PNG" alt="32">
+          <div class="project-body">
+            <div class="project-head">
+              <h3>32</h3>
+              <span class="project-year">(2022)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Programador secundario</span>
+              <span class="tag">Producción musical</span>
+              <span class="tag">Diseño de jugabilidad</span>
+            </div>
+            <p class="desc">
+              Videojuego de terror desarrollado en Unity 2D. En un universo alterno, todos los mineros de la mina San
+              José fallecieron a exceptuar de uno, el cual debe hallar la cápsula fénix luego de meses estando encerrado
+              en el subsuelo mientras una criatura humanoide lo acecha.
+            </p>
+          </div>
+        </div>
+
+        <!-- SLIDE 7 -->
+        <div class="slide">
+          <img class="project-media" src="img/Endless E.png" alt="Endless E">
+          <div class="project-body">
+            <div class="project-head">
+              <h3>Endless E</h3>
+              <span class="project-year">(2024)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Programador Secundario</span>
+              <span class="tag">Producción musical</span>
+            </div>
+            <p class="desc">
+              Videojuego de microjuegos de sucesión rápida.
+            </p>
+            <div class="project-links">
+              <a href="https://pablopoto.itch.io/endless-e" target="_blank">Jugar →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 8 -->
+        <div class="slide">
+          <img class="project-media" src="img/Campus of the Dead.png" alt="Campus of the Dead">
+          <div class="project-body">
+            <div class="project-head">
+              <h3>Campus of the Dead</h3>
+              <span class="project-year">(2023)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Programador Secundario</span>
+              <span class="tag">Producción musical</span>
+            </div>
+            <p class="desc">
+              Tower Defense desarrollado en Unity 2D. El jugador se enfrenta a oleadas de animales zombies que han
+              invadido la Universidad de Talca debido a un brote de gripe aviar.
+            </p>
+          </div>
+        </div>
+
+        <!-- SLIDE 9 -->
+        <div class="slide">
+          <img class="project-media" src="img/OmegaBeat.PNG" alt="Omegabeat">
+          <div class="project-body">
+            <div class="project-head">
+              <h3>Omegabeat</h3>
+              <span class="project-year">(2022)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Programador principal</span>
+              <span class="tag">Diseño UI</span>
+              <span class="tag">Producción musical</span>
+            </div>
+            <p class="desc">
+              Videojuego de ritmo desarrollado en Unity 2D. El jugador completa una canción en la que debe conseguir
+              la mayor puntuación posible siendo preciso con las notas, con el añadido de que existen notas de colores
+              que deben coincidir con el botón ubicado en cierto carril, añadiendo dificultad.
+            </p>
+          </div>
+        </div>
+
+        <!-- SLIDE 10 -->
+        <div class="slide">
+          <img class="project-media" src="img/Constructor de Cuentos.png" alt="Constructor de cuentos">
+          <div class="project-body">
+            <div class="project-head">
+              <h3>Constructor de cuentos</h3>
+              <span class="project-year">(2025)</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Programador UI</span>
+              <span class="tag">Diseño UI</span>
+            </div>
+            <p class="desc">
+             Experiencia terapéutica para promover el uso de los recursos emocionales en niños. Usando una ruleta se asigna
+              un lugar, una persona, un objeto y una emoción, y el usuario debe crear un mini-cuento con aquellas piezas con
+              el fin de dar una resolución a un conflicto.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="carousel-controls">
+        <button class="arrow-btn" id="prev-btn" aria-label="Proyecto anterior">←</button>
+        <div class="dots" id="dots"></div>
+        <span class="counter" id="counter">1 / 10</span>
+        <button class="arrow-btn" id="next-btn" aria-label="Proyecto siguiente">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="music">
+  <div class="wrap">
+    <span class="section-tag">// producción musical</span>
+    <h2>Música</h2>
+    <div class="music-grid">
+      <a class="music-card" href="https://open.spotify.com/intl-es/artist/3FV8L95rueS3Lwkxh1pnHw?si=T-5UwlBxR-Kib8tjprjgOg" target="_blank">
+        <div class="music-icon spotify">SP</div>
+        <div>
+          <h3>Spotify</h3>
+          <span>Escucha mis tracks →</span>
+        </div>
+      </a>
+      <a class="music-card" href="https://on.soundcloud.com/KTdI1mx2I8eToFhS2d" target="_blank">
+        <div class="music-icon soundcloud">SC</div>
+        <div>
+          <h3>SoundCloud</h3>
+          <span>Demos y trabajo en progreso →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="stack">
+  <div class="wrap">
+    <span class="section-tag">// con qué trabajo</span>
+    <h2>Stack</h2>
+    <div class="stack-grid">
+      <div class="stack-item">Unity</div>
+      <div class="stack-item">GameMaker</div>
+      <div class="stack-item">Blender</div>
+      <div class="stack-item">C++</div>
+      <div class="stack-item">C#</div>
+      <div class="stack-item">FMOD</div>
+      <div class="stack-item">FL STUDIO</div>
+      <div class="stack-item">Audacity</div>
+      <div class="stack-item">Illustrator</div>
+      <div class="stack-item">Git</div>
+      <div class="stack-item">GitHub</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="career">
+  <div class="wrap">
+    <span class="section-tag">// experiencia</span>
+    <h2>Carrera Profesional</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-date">[Fecha inicio] — [Fecha término]</span>
+        <h3>Memoria de Título — The Benchmark</h3>
+        <span class="org">Universidad de Talca, Chile</span>
+        <p>Desarrollo de "The Benchmark", un Hack n Slash 3D con elementos arcade, como proyecto de titulación
+        de Ingeniería en Desarrollo de Videojuegos y Realidad Virtual. [Agrega aquí el enfoque de la memoria,
+        objetivos, o resultados obtenidos.]</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-date">[Fecha inicio] — [Fecha término]</span>
+        <h3>Práctica Profesional</h3>
+        <span class="org">[Nombre de la empresa]</span>
+        <p>[Descripción breve de tu rol y responsabilidades durante esta práctica.]</p>
+        <ul>
+          <li>[Logro o tarea concreta #1]</li>
+          <li>[Logro o tarea concreta #2]</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <span class="tl-date">[Fecha inicio] — [Fecha término]</span>
+        <h3>Práctica Profesional</h3>
+        <span class="org">[Nombre de la empresa]</span>
+        <p>[Descripción breve de tu rol y responsabilidades durante esta práctica.]</p>
+        <ul>
+          <li>[Logro o tarea concreta #1]</li>
+          <li>[Logro o tarea concreta #2]</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <h2>Hablemos</h2>
+    <p>Abierto a oportunidades, colaboraciones y proyectos interesantes.</p>
+    <div class="contact-links">
+      <a href="mailto:tu@email.com">tu@email.com</a>
+      <a href="https://linkedin.com/in/tu-usuario" target="_blank">LinkedIn</a>
+      <a href="https://github.com/tu-usuario" target="_blank">GitHub</a>
+    </div>
+    <p class="foot-note">Pablo Escobar · Chile · 2026</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const track = document.getElementById('carousel-track');
+  const slides = Array.from(track.children);
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const dotsWrap = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  let index = 0;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Ir al proyecto ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function render(){
+    track.style.transform = 'translateX(-' + (index * 100) + '%)';
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    counter.textContent = (index + 1) + ' / ' + slides.length;
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === slides.length - 1;
+  }
+
+  function goTo(i){
+    index = Math.max(0, Math.min(slides.length - 1, i));
+    render();
+  }
+
+  prevBtn.addEventListener('click', () => goTo(index - 1));
+  nextBtn.addEventListener('click', () => goTo(index + 1));
+
+  render();
+})();
+</script>
+
+</body>
+</html>
